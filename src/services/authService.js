@@ -1,8 +1,12 @@
-import { auth,createUserWithEmailAndPassword } from "../firebase/firebase-config"
+import { auth,createUserWithEmailAndPassword ,updateProfile } from "../firebase/firebase-config"
 
-export const registerUser = (email,password)=>{
+export const registerUser = (name,email,password)=>{
   createUserWithEmailAndPassword(auth,email,password)
-    .then(({user})=>{
+    .then(async({user})=>{
+
+      await updateProfile(user,{
+        displayName: name
+      });
       console.log('usuario añadido');
       console.log('Credenciales');
       console.log(user);
