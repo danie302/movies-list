@@ -14,11 +14,13 @@ const Signup = () => {
 
   const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-  const isNotEmpty = (value) => value.trim().length > 5;
+  const isNotEmpty = (value) => value.trim() !== '';
+  const validLength = (value) => value.trim().length > 5;
   const isEmail = (value) => value.match(regex)
   
   const emailField = useForm(isEmail);
-  const passwordField = useForm(isNotEmpty);
+  const passwordField = useForm(validLength);
+  const usernameField = useForm(isNotEmpty);
   
   const confirmPass = (value)=> value === passwordField.value;
   const confirmPasswordField = useForm(confirmPass);
@@ -29,7 +31,7 @@ const Signup = () => {
     formIsValid = true;
   }
   
-  const formSubmit = (e) => {
+  const formSubmitHandler = (e) => {
     e.preventDefault();
     if (formIsValid) {
       registerUser(emailField.value, passwordField.value);
@@ -52,6 +54,7 @@ const Signup = () => {
   };
 
   const emailIsValid = emailField.hasError ? "Enter a valid email" : "Email";
+  const usernameIsValid = usernameField.hasError ? "Enter a user" : "User";
   const passwordIsValid = passwordField.hasError
     ? "Password must have at least 6 characters"
     : "Password";
@@ -61,11 +64,21 @@ const Signup = () => {
 
   return (
     <FormControl className="form-container">
-      <form onSubmit={formSubmit} className="form">
+      <form onSubmit={formSubmitHandler} className="form">
         <h3>Create an account</h3>
         <TextField
+          error={usernameField.hasError}
+          id="outlined-basic-username"
+          label={usernameIsValid}
+          variant="outlined"
+          type="text"
+          value={usernameField.value}
+          onChange={usernameField.valueChangeHandler}
+          onBlur={usernameField.blurHandler}
+        />
+        <TextField
           error={emailField.hasError}
-          id="outlined-basic"
+          id="outlined-basic-email"
           label={emailIsValid}
           variant="outlined"
           type="email"
@@ -75,7 +88,7 @@ const Signup = () => {
         />
         <TextField
           error={passwordField.hasError}
-          id="outlined-password-input"
+          id="outlined-password-pass"
           label={passwordIsValid}
           type="password"
           autoComplete="current-password"
@@ -85,7 +98,7 @@ const Signup = () => {
         />
         <TextField
           error={confirmPasswordField.hasError}
-          id="outlined-password-input"
+          id="outlined-password-confpass"
           label={confirmPasswordMessage}
           type="password"
           autoComplete="current-password"
