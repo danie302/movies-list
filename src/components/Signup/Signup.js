@@ -1,5 +1,6 @@
 import { Alert, Button, FormControl, TextField } from "@mui/material";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { isEmail, isNotEmpty, validLength } from "../../helpers/validations";
 import { useForm } from "../../hooks/useForm";
 import { registerUser } from "../../services/authService";
@@ -54,8 +55,6 @@ const Signup = () => {
     ? "Password must have at least 6 characters"
     : "Password";
   const confirmPasswordMessage = confirmPasswordField.hasError ? 'Passwords must match' : 'Confirm Password';
-  
-
 
   return (
     <FormControl className="form-container">
@@ -104,6 +103,8 @@ const Signup = () => {
         <Button type="submit" variant="outlined">
           Sign up
         </Button>
+        <p className="text-center">Alredy have an account? <Link to="/login">Login here!</Link></p>
+
       {alert.show && <Alert severity={alert.severity}>{alert.message}</Alert>}
       </form>
     </FormControl>

@@ -1,5 +1,6 @@
-import { Alert, Button, FormControl, TextField } from '@mui/material'
+import {Button, FormControl, TextField } from '@mui/material'
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { isEmail, isNotEmpty} from '../../helpers/validations';
 import { useForm } from '../../hooks/useForm';
 import { login } from '../../services/authService';
@@ -47,6 +48,7 @@ const Login = () => {
         <Button type="submit" variant="outlined">
           Login
         </Button>
+        <p className="text-center">Do not have an account? <Link to="/signup">Register here</Link></p>
       {/* {alert.show && <Alert severity={alert.severity}>{alert.message}</Alert>} */}
       </form>
     </FormControl>
