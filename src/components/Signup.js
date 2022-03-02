@@ -34,7 +34,7 @@ const Signup = () => {
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (formIsValid) {
-      registerUser(emailField.value, passwordField.value);
+      registerUser(usernameField.value,emailField.value, passwordField.value);
       emailField.resetHandler();
       passwordField.resetHandler();
       confirmPasswordField.resetHandler();
