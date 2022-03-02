@@ -1,7 +1,7 @@
 import { Alert, Button, FormControl, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { useForm } from "../hooks/useForm";
-import { registerUser } from "../services/authService";
+import { useForm } from "../../hooks/useForm";
+import { registerUser } from "../../services/authService";
 import "./Signup.css";
 
 const Signup = () => {
