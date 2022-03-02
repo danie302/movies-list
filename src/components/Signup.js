@@ -1,25 +1,34 @@
 import { Button, FormControl, TextField } from "@mui/material";
 import React from "react";
 import { useForm } from "../hooks/useForm";
+import { registerUser } from "../services/authService";
 import "./Signup.css";
 
 const Signup = () => {
-  const isNotEmpty = (value) => value.trim().length > 4;
-  const isEmail = (value) => value.includes("@");
+  const isNotEmpty = (value) => value.trim().length > 5;
+  const isEmail = (value) => (value.includes("@") && value.includes('.com'));
 
   const emailField = useForm(isEmail);
   const passwordField = useForm(isNotEmpty);
 
+  let formIsValid = false;
+
+  if(emailField.isValid && passwordField.isValid){
+    formIsValid = true;
+  }
+
   const formSubmit = (e) => {
     e.preventDefault();
-    console.log(emailField.value, passwordField.value);
-    emailField.resetHandler();
-    passwordField.resetHandler();
+    if(formIsValid){
+      registerUser(emailField.value, passwordField.value);
+      emailField.resetHandler();
+      passwordField.resetHandler();
+    }
   };
 
   const emailIsValid = emailField.hasError ? "Enter a valid email" : "Email";
   const passwordIsValid = passwordField.hasError
-    ? "Password should have a least 4 characters"
+    ? "Password must have at least 6 characters"
     : "Password";
 
   return (
