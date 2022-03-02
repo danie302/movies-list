@@ -1,4 +1,4 @@
-import { auth,createUserWithEmailAndPassword ,updateProfile } from "../firebase/firebase-config"
+import { auth,createUserWithEmailAndPassword ,updateProfile, signInWithEmailAndPassword } from "../firebase/firebase-config"
 
 export const registerUser = (name,email,password)=>{
   createUserWithEmailAndPassword(auth,email,password)
@@ -9,6 +9,18 @@ export const registerUser = (name,email,password)=>{
       });
       console.log('usuario añadido');
       console.log('Credenciales');
+      console.log(user);
+    })
+    .catch((error)=>{
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    })
+}
+
+export const login = (email,password)=>{
+  signInWithEmailAndPassword(auth,email, password)
+    .then(({user})=>{
       console.log(user);
     })
     .catch((error)=>{
