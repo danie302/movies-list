@@ -1,0 +1,53 @@
+const apiConfig ={
+  API_KEY: process.env.REACT_APP_MOVIES_API_KEY,
+  URL: process.env.REACT_APP_MOVIES_URL,
+}
+
+export const getPopularMovies = async()=>{
+  try {
+    const res = await fetch(apiConfig.URL + '/popular?api_key=' + apiConfig.API_KEY);
+    if(!res.ok){
+      throw new Error('Something went wrong');
+    }
+    const resJson = await res.json();
+    return resJson    
+  } catch (error) {
+    return error;
+  }
+}
+export const getRecentMovies = async()=>{
+  try {
+    const res = await fetch(apiConfig.URL + '/now_playing?api_key=' + apiConfig.API_KEY);
+    if(!res.ok){
+      throw new Error('Something went wrong');
+    }
+    const resJson = await res.json();
+    return resJson    
+  } catch (error) {
+    return error;
+  }
+}
+export const getMovieDetails = async(id)=>{
+  try {
+    const res = await fetch(`${apiConfig.URL}/${id}?api_key=${apiConfig.API_KEY}`);
+    if(!res.ok){
+      throw new Error('Something went wrong');
+    }
+    const resJson = await res.json();
+    return resJson    
+  } catch (error) {
+    return error;
+  }
+}
+export const getMovieCredits = async(id)=>{
+  try {
+    const res = await fetch(`${apiConfig.URL}/${id}/credits?api_key=${apiConfig.API_KEY}`);
+    if(!res.ok){
+      throw new Error('Something went wrong');
+    }
+    const resJson = await res.json();
+    return resJson    
+  } catch (error) {
+    return error;
+  }
+}
