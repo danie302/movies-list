@@ -1,4 +1,4 @@
-import { auth,createUserWithEmailAndPassword ,updateProfile, signInWithEmailAndPassword } from "../firebase/firebase-config"
+import { auth,createUserWithEmailAndPassword ,updateProfile, signInWithEmailAndPassword } from "../firebase/firebase-config";
 
 export const registerUser = (name,email,password)=>{
   createUserWithEmailAndPassword(auth,email,password)
@@ -19,13 +19,27 @@ export const registerUser = (name,email,password)=>{
 }
 
 export const login = (email,password)=>{
-  signInWithEmailAndPassword(auth,email, password)
+  return signInWithEmailAndPassword(auth,email, password)
     .then(({user})=>{
-      console.log(user);
+      return user;
     })
     .catch((error)=>{
-      const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      return errorMessage      
     })
+}
+
+export const authReducer = (state={},action)=>{
+  switch(action.type){
+    case 'LOGIN':
+      return{
+        uid: action.payload.uid,
+        name: action.payload.name
+      }
+    case 'LOGOUT':
+      return{}
+    default:
+      return state;
+  }
+  
 }
