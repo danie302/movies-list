@@ -6,16 +6,12 @@ export const registerUser = (name,email,password)=>{
     .then(async({user})=>{
       await updateProfile(user,{
         displayName: name
-      });
-      console.log('usuario añadido');
-      console.log('Credenciales');
-      console.log(user);
+      });      
       return user;
     })
     .catch((error)=>{      
       const errorMessage = error.message;
-      return errorMessage;
-      
+      return errorMessage;      
     })
 }
 
