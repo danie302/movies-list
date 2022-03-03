@@ -1,4 +1,5 @@
 import { auth,createUserWithEmailAndPassword ,updateProfile, signInWithEmailAndPassword } from "../firebase/firebase-config";
+import { types } from "../types/types";
 
 export const registerUser = (name,email,password)=>{
   createUserWithEmailAndPassword(auth,email,password)
@@ -31,12 +32,12 @@ export const login = (email,password)=>{
 
 export const authReducer = (state={},action)=>{
   switch(action.type){
-    case 'LOGIN':
+    case types.login:
       return{
         uid: action.payload.uid,
         name: action.payload.name
       }
-    case 'LOGOUT':
+    case types.logout:
       return{}
     default:
       return state;

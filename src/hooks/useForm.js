@@ -1,14 +1,9 @@
 import { useReducer } from "react";
+import { types } from "../types/types";
 
 const initialState={
   value: '',
   isTouched: false,
-}
-
-const types ={
-  input: 'INPUT',
-  blur: 'BLUR',
-  reset: 'RESET'
 }
 
 const formReducer = (state, action)=>{

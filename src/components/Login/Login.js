@@ -5,6 +5,7 @@ import { isEmail, isNotEmpty} from '../../helpers/validations';
 import { useForm } from '../../hooks/useForm';
 import { login } from '../../services/authService';
 import { AuthContext } from '../../store/auth-context';
+import { types } from '../../types/types';
 
 const Login = () => {
   
@@ -28,7 +29,7 @@ const Login = () => {
       const user = await login(emailField.value, passwordField.value);   
       if(user.uid){
         const action={
-          type: 'LOGIN',
+          type: types.login,
           payload:{
             name: user.displayName,
             uid: user.uid
