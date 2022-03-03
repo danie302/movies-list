@@ -1,12 +1,19 @@
-import {Button, FormControl, TextField } from '@mui/material'
-import React from 'react'
+import {Alert, Button, FormControl, TextField } from '@mui/material'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { isEmail, isNotEmpty} from '../../helpers/validations';
 import { useForm } from '../../hooks/useForm';
 import { login } from '../../services/authService';
+import { AuthContext } from '../../store/auth-context';
 
 const Login = () => {
   
+  const [alert, setAlert] = useState({
+    message: '',
+    severity: '',
+    show: false
+  })
+  const authCtx = useContext(AuthContext)
   const emailField = useForm(isEmail);
   const passwordField = useForm(isNotEmpty);
   let formIsValid = false;
@@ -15,12 +22,35 @@ const Login = () => {
     formIsValid = true;
   }
 
-  const formSubmitHandler = (event)=>{
+  const formSubmitHandler = async(event)=>{
     event.preventDefault();
     if(formIsValid){
-      login(emailField.value, passwordField.value)
-      emailField.resetHandler();
-      passwordField.resetHandler();      
+      const user = await login(emailField.value, passwordField.value);   
+      if(user.uid){
+        const action={
+          type: 'LOGIN',
+          payload:{
+            name: user.displayName,
+            uid: user.uid
+          }
+        }
+        authCtx.dispatch(action);
+        emailField.resetHandler();
+        passwordField.resetHandler(); 
+        setAlert({
+          message: `Bienvenido ${user.displayName} - uid ${user.uid}`,
+          severity: 'success',
+          show:true
+        });
+        return;
+      }   
+      if(user.includes('auth/user-not-found') || user.includes('auth/wrong-password')){
+        setAlert({
+          message: 'Email o contraseña incorrectos',
+          severity: 'error',
+          show:true
+        })        
+      }             
     }
   }
   return (
@@ -49,7 +79,7 @@ const Login = () => {
           Login
         </Button>
         <p className="text-center">Do not have an account? <Link to="/signup">Register here</Link></p>
-      {/* {alert.show && <Alert severity={alert.severity}>{alert.message}</Alert>} */}
+        {alert.show && <Alert severity={alert.severity}>{alert.message}</Alert>}
       </form>
     </FormControl>
   )
