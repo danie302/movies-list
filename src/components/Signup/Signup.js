@@ -27,10 +27,20 @@ const Signup = () => {
     formIsValid = true;
   }
   
-  const formSubmitHandler = (e) => {
+  const formSubmitHandler = async(e) => {
     e.preventDefault();
     if (formIsValid) {
-      registerUser(usernameField.value,emailField.value, passwordField.value);
+      const user = await registerUser(usernameField.value,emailField.value, passwordField.value);      
+      if(user.includes("auth/email-already-in-use")){
+        setAlert({
+          show: true,
+          severity:"error",
+          message: "Email already in use"
+        }); 
+        return;
+      }
+      
+      usernameField.resetHandler();
       emailField.resetHandler();
       passwordField.resetHandler();
       confirmPasswordField.resetHandler();

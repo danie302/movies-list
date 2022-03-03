@@ -2,20 +2,20 @@ import { auth,createUserWithEmailAndPassword ,updateProfile, signInWithEmailAndP
 import { types } from "../types/types";
 
 export const registerUser = (name,email,password)=>{
-  createUserWithEmailAndPassword(auth,email,password)
+  return createUserWithEmailAndPassword(auth,email,password)
     .then(async({user})=>{
-
       await updateProfile(user,{
         displayName: name
       });
       console.log('usuario añadido');
       console.log('Credenciales');
       console.log(user);
+      return user;
     })
-    .catch((error)=>{
-      const errorCode = error.code;
+    .catch((error)=>{      
       const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      return errorMessage;
+      
     })
 }
 
