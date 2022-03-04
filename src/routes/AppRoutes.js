@@ -11,6 +11,7 @@ const AppRoutes = () => {
   return (
     <main>
       <Routes>
+        <Route path="/" element={<Navigate replace to= '/login' />}/>
         <Route
           path="/login"
           element={
