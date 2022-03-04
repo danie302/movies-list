@@ -37,7 +37,7 @@ const Header = ({ image = "" }) => {
           >
             Movies List
           </Typography>
-          {authCtx.user?.uid && (
+          {authCtx.user !== '' && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
