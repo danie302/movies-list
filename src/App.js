@@ -1,12 +1,26 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
+import { auth } from './firebase/firebase-config';
 import AppRoutes from './routes/AppRoutes';
 import { authReducer } from './services/authService';
 import { AuthContext } from './store/auth-context';
 
 function App() {
-  const [user, dispatch] = useReducer(authReducer, {uid:'', name:''})
+  const init = ()=> localStorage.getItem('user');
+  const [user, dispatch] = useReducer(authReducer, {}, init)
+  useEffect(() => {
+    if(!user){
+      return;
+    }
+    const uns = auth.onAuthStateChanged(usr=>{
+      if(usr?.uid){
+        localStorage.setItem('user', JSON.stringify({uid:usr.uid,name:usr.displayName}));
+      }
+    })  
+    return (uns);    
+  }, [user])
+  
   return (
     <AuthContext.Provider value={{user,dispatch}}>
       <Header image='' />
