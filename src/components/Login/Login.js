@@ -35,14 +35,7 @@ const Login = () => {
             uid: user.uid
           }
         }
-        authCtx.dispatch(action);
-        emailField.resetHandler();
-        passwordField.resetHandler(); 
-        setAlert({
-          message: `Bienvenido ${user.displayName} - uid ${user.uid}`,
-          severity: 'success',
-          show:true
-        });
+        authCtx.dispatch(action);        
         return;
       }   
       if(user.includes('auth/user-not-found') || user.includes('auth/wrong-password')){
