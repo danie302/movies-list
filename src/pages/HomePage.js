@@ -3,7 +3,7 @@ import { AuthContext } from '../store/auth-context'
 
 const HomePage = () => {
   const authCtx = useContext(AuthContext);
-  const user = JSON.parse(authCtx.user);
+  const user = authCtx.user?.uid ? authCtx.user : JSON.parse(authCtx.user)
   return (
     <div>
       <p>Welcome {user.name}</p>
