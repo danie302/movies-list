@@ -51,3 +51,16 @@ export const getMovieCredits = async(id)=>{
     return error;
   }
 }
+
+export const getConfiguration = async()=>{
+  try {
+    const res = await fetch(`${apiConfig.URL.replace('/movie','')}/configuration?api_key=${apiConfig.API_KEY}`);
+    if(!res.ok){
+      throw new Error('Something went wrong');
+    }
+    const resJson = await res.json();
+    return resJson   
+  } catch (error) {
+    return error;
+  }
+}
