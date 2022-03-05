@@ -5,6 +5,7 @@ import SwiperCore, {
   EffectCoverflow,
   Pagination,
   Navigation,
+  Autoplay
 } from "swiper/core";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,7 +16,7 @@ import {
   getPopularMovies,
 } from "../../services/moviesService";
 
-SwiperCore.use([EffectCoverflow, Pagination, Navigation]);
+SwiperCore.use([EffectCoverflow, Pagination, Navigation, Autoplay]);
 
 const Carrousel = () => {
   const [popularMovies, setPopularMovies] = useState({
@@ -52,6 +53,7 @@ const Carrousel = () => {
     };
     fetchMovies().catch((error) => error);
   }, []);
+  console.log(popularMovies);
   return (
     <section id="carrousel">
       <h2>Movies List</h2>
@@ -73,6 +75,10 @@ const Carrousel = () => {
             }}
             pagination={{
               clickable: true,
+            }}
+            autoplay={{
+              delay:3000,
+              disableOnInteraction: false
             }}
             className="my-swiper"
           >
