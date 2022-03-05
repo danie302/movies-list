@@ -5,7 +5,7 @@ import SwiperCore, {
   EffectCoverflow,
   Pagination,
   Navigation,
-  Autoplay
+  Autoplay,
 } from "swiper/core";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,6 +15,7 @@ import {
   getConfiguration,
   getPopularMovies,
 } from "../../services/moviesService";
+import CarrouselItem from "./CarrouselItem/CarrouselItem";
 
 SwiperCore.use([EffectCoverflow, Pagination, Navigation, Autoplay]);
 
@@ -29,13 +30,13 @@ const Carrousel = () => {
     moviesArray.forEach((movie) => {
       slides.push(
         <SwiperSlide key={movie.id}>
-          <img
-            src={
+          <CarrouselItem
+            movieTitle={movie.title}
+            movieImagePath={
               popularMovies.conf.images.base_url +
               popularMovies.conf.images.backdrop_sizes[1] +
               movie.backdrop_path
             }
-            alt={movie.title}
           />
         </SwiperSlide>
       );
@@ -53,39 +54,37 @@ const Carrousel = () => {
     };
     fetchMovies().catch((error) => error);
   }, []);
-  console.log(popularMovies);
   return (
     <section id="carrousel">
       <h2>Movies List</h2>
-      
-        {moviesArray && (
-          <Swiper
-            id="main_swiper"
-            navigation={true}
-            effect={"coverflow"}
-            centeredSlides={true}
-            slidesPerView={window.innerWidth < 768 ? 1 : 4}
-            loop={true}
-            coverflowEffect={{
-              rotate: 0,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            autoplay={{
-              delay:3000,
-              disableOnInteraction: false
-            }}
-            className="my-swiper"
-          >
-            {slides}
-          </Swiper>
-        )}
 
+      {moviesArray && (
+        <Swiper
+          id="main_swiper"
+          navigation={true}
+          effect={"coverflow"}
+          centeredSlides={true}
+          slidesPerView={window.innerWidth < 768 ? 1 : 4}
+          loop={true}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          className="my-swiper"
+        >
+          {slides}
+        </Swiper>
+      )}
     </section>
   );
 };
