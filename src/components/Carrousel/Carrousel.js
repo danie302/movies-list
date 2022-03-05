@@ -1,0 +1,87 @@
+import React, { useEffect, useState } from "react";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, {
+  EffectCoverflow,
+  Pagination,
+  Navigation,
+} from "swiper/core";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "./Carrousel.css";
+import {
+  getConfiguration,
+  getPopularMovies,
+} from "../../services/moviesService";
+
+SwiperCore.use([EffectCoverflow, Pagination, Navigation]);
+
+const Carrousel = () => {
+  const [popularMovies, setPopularMovies] = useState({
+    movies: {},
+    conf: {},
+  });
+  const moviesArray = popularMovies.movies?.results;
+  const slides = [];
+  if (moviesArray) {
+    moviesArray.forEach((movie) => {
+      slides.push(
+        <SwiperSlide key={movie.id}>
+          <img
+            src={
+              popularMovies.conf.images.base_url +
+              popularMovies.conf.images.backdrop_sizes[1] +
+              movie.backdrop_path
+            }
+            alt={movie.title}
+          />
+        </SwiperSlide>
+      );
+    });
+  }
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const movies = await getPopularMovies();
+      const conf = await getConfiguration();
+      const data = {
+        movies,
+        conf,
+      };
+      setPopularMovies(data);
+    };
+    fetchMovies().catch((error) => error);
+  }, []);
+  return (
+    <section id="carrousel">
+      <h2>Movies List</h2>
+      
+        {moviesArray && (
+          <Swiper
+            id="main_swiper"
+            navigation={true}
+            effect={"coverflow"}
+            centeredSlides={true}
+            slidesPerView={window.innerWidth < 768 ? 1 : 4}
+            loop={true}
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            className="my-swiper"
+          >
+            {slides}
+          </Swiper>
+        )}
+
+    </section>
+  );
+};
+
+export default Carrousel;
