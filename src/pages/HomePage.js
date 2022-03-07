@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Carrousel from "../components/Carrousel/Carrousel";
+import RecentMovies from "../components/RecentMovies/RecentMovies";
 import { getConfiguration, getPopularMovies, getRecentMovies } from "../services/moviesService";
 
 
@@ -24,11 +25,14 @@ const HomePage = () => {
     };
     fetchMovies().catch((error) => error);
   }, []);
-  
+
   return (
       <React.Fragment>
         {
-          moviesAndConf.popular.results && <Carrousel items={moviesAndConf.popular.results} conf={moviesAndConf.conf} />   
+          moviesAndConf.popular.results && <Carrousel items={moviesAndConf.popular.results} conf={moviesAndConf.conf} />
+        }
+        {
+          moviesAndConf.recent.results && <RecentMovies recent={moviesAndConf.recent.results} conf={moviesAndConf.conf} />
         }
 
       </React.Fragment>
