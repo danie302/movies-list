@@ -28,8 +28,8 @@ const Carrousel = (props) => {
             movieTitle={movie.title}
             movieImagePath={
               conf.images.base_url +
-              conf.images.backdrop_sizes[1] +
-              movie.backdrop_path
+              conf.images.poster_sizes[4] +
+              movie.poster_path
             }
           />
         </SwiperSlide>
