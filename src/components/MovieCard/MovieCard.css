@@ -2,11 +2,15 @@
   display: flex;
   flex-direction: column; 
   align-items: center;
+  height: 100%;
 }
 .container_card img{
-  width: 100%;
+  width: 220px;
   min-height: 300px;
+  border-radius: 50px;
+  border: 1px solid #000
 }
 .container_card p{
+  font-weight: 500;
   text-align: center;
 }
