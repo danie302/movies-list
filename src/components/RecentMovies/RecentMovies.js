@@ -3,6 +3,7 @@ import { LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { getRecentMovies } from "../../services/moviesService";
 import "./RecentMovies.css";
+import MovieCard from "../MovieCard/MovieCard";
 
 const RecentMovies = (props) => {
   const [hasMore, setHasMore] = useState(true);
@@ -27,25 +28,21 @@ const RecentMovies = (props) => {
         next={fetchMovies}
         hasMore={hasMore}
         loader={<LinearProgress className="linear" />}
-        endMessage={
-          <p>There are no more recent movies</p>
-        }
+        endMessage={<p>There are no more recent movies</p>}
       >
         <div className="container_recent">
           {movies.map((movie) => (
-            <div key={movie.id}>
-              <img
-                src={
-                  props.conf.images.base_url +
-                  props.conf.images.poster_sizes[4] +
-                  (movie.poster_path !== null
-                    ? movie.poster_path
-                    : movie.backdrop_path)
-                }
-                alt=""
-              />
-              <p>{movie.title}</p>
-            </div>
+            <MovieCard
+              key={movie.id}
+              src={
+                props.conf.images.base_url +
+                props.conf.images.poster_sizes[4] +
+                (movie.poster_path !== null
+                  ? movie.poster_path
+                  : movie.backdrop_path)
+              }
+              title={movie.title}
+            />
           ))}
         </div>
       </InfiniteScroll>

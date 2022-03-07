@@ -2,21 +2,8 @@
   padding: 2rem 3rem;
 }
 
-.container_recent img{
-  width: 100%;
-  min-height: 300px;
-}
 .container_recent{
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fill,minmax(205px,1fr));
-}
-
-.container_recent div{
-  display: flex;
-  flex-direction: column; 
-  align-items: center;
-}
-.container_recent div p{
-  text-align: center;
 }
