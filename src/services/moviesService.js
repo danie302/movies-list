@@ -15,9 +15,9 @@ export const getPopularMovies = async()=>{
     return error;
   }
 }
-export const getRecentMovies = async()=>{
+export const getRecentMovies = async(page=1)=>{
   try {
-    const res = await fetch(apiConfig.URL + '/now_playing?api_key=' + apiConfig.API_KEY);
+    const res = await fetch(apiConfig.URL + '/now_playing?api_key=' + apiConfig.API_KEY +"&page="+page);
     if(!res.ok){
       throw new Error('Something went wrong');
     }
