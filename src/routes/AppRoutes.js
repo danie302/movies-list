@@ -7,7 +7,7 @@ import { AuthContext } from "../store/auth-context";
 
 const AppRoutes = () => {
   const authCtx = useContext(AuthContext);
-  console.log(authCtx);
+  
   return (
     <main>
       <Routes>
