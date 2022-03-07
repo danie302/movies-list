@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import PropTypes from 'prop-types';
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
   EffectCoverflow,
@@ -11,21 +10,16 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./Carrousel.css";
-import {
-  getConfiguration,
-  getPopularMovies,
-} from "../../services/moviesService";
 import CarrouselItem from "./CarrouselItem/CarrouselItem";
+
 
 SwiperCore.use([EffectCoverflow, Pagination, Navigation, Autoplay]);
 
-const Carrousel = () => {
-  const [popularMovies, setPopularMovies] = useState({
-    movies: {},
-    conf: {},
-  });
-  const moviesArray = popularMovies.movies?.results;
-  const slides = [];
+const Carrousel = (props) => {  
+
+  const {items:moviesArray, conf} = props;
+  const slides = [];  
+ 
   if (moviesArray) {
     moviesArray.forEach((movie) => {
       slides.push(
@@ -33,27 +27,15 @@ const Carrousel = () => {
           <CarrouselItem
             movieTitle={movie.title}
             movieImagePath={
-              popularMovies.conf.images.base_url +
-              popularMovies.conf.images.backdrop_sizes[1] +
+              conf.images.base_url +
+              conf.images.backdrop_sizes[1] +
               movie.backdrop_path
             }
           />
         </SwiperSlide>
       );
     });
-  }
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const movies = await getPopularMovies();
-      const conf = await getConfiguration();
-      const data = {
-        movies,
-        conf,
-      };
-      setPopularMovies(data);
-    };
-    fetchMovies().catch((error) => error);
-  }, []);
+  }    
   return (
     <section id="carrousel">
       <h2>Movies List</h2>
@@ -88,5 +70,10 @@ const Carrousel = () => {
     </section>
   );
 };
+
+Carrousel.propTypes={
+  items: PropTypes.array,
+  conf: PropTypes.object
+}
 
 export default Carrousel;
