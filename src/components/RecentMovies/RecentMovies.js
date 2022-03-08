@@ -33,6 +33,7 @@ const RecentMovies = (props) => {
         <div className="container_recent">
           {movies.map((movie) => (
             <MovieCard
+              id={movie.id}
               key={movie.id}
               src={
                 props.conf.images.base_url +
@@ -40,6 +41,7 @@ const RecentMovies = (props) => {
                 (movie.poster_path ?? movie.backdrop_path)
               }
               title={movie.title}
+              conf={props.conf}
             />
           ))}
         </div>
