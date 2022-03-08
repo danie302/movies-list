@@ -31,10 +31,10 @@ const RecentMovies = (props) => {
         endMessage={<p>There are no more recent movies</p>}
       >
         <div className="container_recent">
-          {movies.map((movie) => (
+          {movies.map((movie,idx) => (
             <MovieCard
               id={movie.id}
-              key={movie.id}
+              key={idx}
               src={
                 props.conf.images.base_url +
                 props.conf.images.poster_sizes[4] +
