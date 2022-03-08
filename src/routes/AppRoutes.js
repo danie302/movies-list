@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
+import { MovieDetailPage } from "../pages/MovieDetailPage";
 import SignupPage from "../pages/SignupPage";
 import { AuthContext } from "../store/auth-context";
 
@@ -30,6 +31,10 @@ const AppRoutes = () => {
             authCtx.user ? <HomePage /> : <Navigate replace to="/login" />
           }
         />
+        <Route
+          path="/movie/:id"
+          element={<MovieDetailPage />}
+         />
       </Routes>
     </main>
   );
