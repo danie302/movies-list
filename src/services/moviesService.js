@@ -64,3 +64,16 @@ export const getConfiguration = async()=>{
     return error;
   }
 }
+
+export const getCast = async(id)=>{
+  try {
+    const res = await fetch(`${apiConfig.URL}/${id}/credits?api_key=${apiConfig.API_KEY}`);
+    if(!res.ok){
+      throw new Error('Something went wrong');
+    }
+    const resJson = await res.json();
+    return resJson   
+  } catch (error) {
+    return error;
+  }
+}
