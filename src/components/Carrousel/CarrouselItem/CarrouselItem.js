@@ -1,7 +1,7 @@
 import React from "react";
 
-const CarrouselItem = ({ movieImagePath, movieTitle }) => {
-  return <img src={movieImagePath} alt={movieTitle} />;
+const CarrouselItem = ({ imagePath, imageTitle }) => {
+  return <img src={imagePath} alt={imageTitle} />;
 };
 
 export default CarrouselItem;

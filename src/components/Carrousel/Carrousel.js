@@ -11,36 +11,36 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./Carrousel.css";
 import CarrouselItem from "./CarrouselItem/CarrouselItem";
+import React from 'react';
 
 
 SwiperCore.use([EffectCoverflow, Pagination, Navigation, Autoplay]);
 
 const Carrousel = (props) => {  
 
-  const {items:moviesArray, conf} = props;
+  const {items, conf, path} = props;
   const slides = [];  
- 
-  if (moviesArray) {
-    moviesArray.forEach((movie) => {
+  console.log(conf);
+  if (items) {
+    items.forEach((item) => {
       slides.push(
-        <SwiperSlide key={movie.id}>
-          <CarrouselItem
-            movieTitle={movie.title}
-            movieImagePath={
-              conf.images.base_url +
-              conf.images.poster_sizes[4] +
-              movie.poster_path
-            }
-          />
-        </SwiperSlide>
+        <SwiperSlide key={item.id}>
+        <CarrouselItem
+          imageTitle={item.title}            
+          imagePath={
+            conf.base_url +
+            conf.logo_sizes[6] +
+            item[path]
+          }
+        />
+      </SwiperSlide>
       );
     });
   }    
   return (
-    <section id="carrousel">
-      <h2>Movies List</h2>
+    <React.Fragment>  
 
-      {moviesArray && (
+      {items && (
         <Swiper
           id="main_swiper"
           navigation={true}
@@ -67,7 +67,7 @@ const Carrousel = (props) => {
           {slides}
         </Swiper>
       )}
-    </section>
+    </React.Fragment>
   );
 };
 
