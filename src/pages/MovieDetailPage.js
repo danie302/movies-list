@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import MovieDetail from "../components/MovieDetail/MovieDetail";
-import { getConfiguration, getMovieDetails } from "../services/moviesService";
+import { getCast, getConfiguration, getMovieDetails } from "../services/moviesService";
 
 export const MovieDetailPage = () => {
   const location = useLocation();
   const [movie, setMovie] = useState(null);
   const [config, setConfig] = useState(location.state);
+  const [cast, setCast] = useState({})
   const { id } = useParams();
 
   useEffect(() => {
     const fetchMovie = async () => {
       const movieDetail = await getMovieDetails(id);
+      const castData = await getCast(id);
       if (!config) {
         const conf = await getConfiguration();
         setConfig(conf);
       }
+      setCast(castData);
       setMovie(movieDetail);
     };
 
@@ -24,14 +27,13 @@ export const MovieDetailPage = () => {
 
   return (
     <section>
-      {movie && config && (
+      {movie && config && cast && (
         <MovieDetail
           movie={movie}
-          imgPath={
-            config.images.base_url +
-            config.images.poster_sizes[4] +
-            movie.poster_path
+          images={
+            config.images
           }
+          cast={cast}
         />
       )}
     </section>
