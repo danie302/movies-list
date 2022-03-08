@@ -37,9 +37,7 @@ const RecentMovies = (props) => {
               src={
                 props.conf.images.base_url +
                 props.conf.images.poster_sizes[4] +
-                (movie.poster_path !== null
-                  ? movie.poster_path
-                  : movie.backdrop_path)
+                (movie.poster_path ?? movie.backdrop_path)
               }
               title={movie.title}
             />
