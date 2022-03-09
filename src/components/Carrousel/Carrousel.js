@@ -17,7 +17,7 @@ SwiperCore.use([EffectCoverflow, Pagination, Navigation, Autoplay]);
 
 const Carrousel = (props) => {
  
-  const { items, conf, path, autoplay,className } = props;  
+  const { items, conf, effect, loop, path, autoplay,className, pagination, classNameSwiper } = props;  
   
   const slides = [];
     if (items) {
@@ -37,10 +37,10 @@ const Carrousel = (props) => {
       {items && (
         <Swiper
           navigation={true}
-          effect={props.effect}
-          centeredSlides={true}
-          slidesPerView={window.innerWidth < 768 ? 1 : 4}
-          loop={true}
+          effect={effect}
+          centeredSlides={false}
+          slidesPerView={'auto'}
+          loop={loop}
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
@@ -48,11 +48,9 @@ const Carrousel = (props) => {
             modifier: 1,
             slideShadows: true,
           }}
-          pagination={{
-            clickable: true,
-          }}
+          pagination={pagination}
           autoplay={autoplay}
-          className="my-swiper"
+          className={classNameSwiper}
         >
           {slides}
         </Swiper>

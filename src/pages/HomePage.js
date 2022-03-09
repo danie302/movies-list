@@ -36,9 +36,12 @@ const HomePage = () => {
           items={moviesAndConf.popular.results}
           conf={moviesAndConf.conf.images}
           path="poster_path"
+          loop={true}
           effect={"coverflow"}
           autoplay={true}
           className={'.swiper-slide'}
+          pagination={{clickable:true}}
+          classNameSwiper={'swiper-popular'}
           />
       )}
       {moviesAndConf.recent.results && (

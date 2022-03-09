@@ -24,9 +24,12 @@ const MovieDetail = (props) => {
             items={castArray}
             conf={props.images}
             path={"profile_path"}
+            loop={false}
             effect={""}
             autoplay={false}
             className={'swiper-slide-cast'}
+            pagination={false}
+            classNameSwiper={'swiper-cast'}
           />
         }
       </div>
