@@ -1,4 +1,4 @@
-import { auth,createUserWithEmailAndPassword ,updateProfile, signInWithEmailAndPassword } from "../firebase/firebase-config";
+import { auth,createUserWithEmailAndPassword ,updateProfile, signInWithEmailAndPassword, signOut } from "../firebase/firebase-config";
 import { types } from "../types/types";
 
 export const registerUser = (name,email,password)=>{
@@ -24,6 +24,10 @@ export const login = (email,password)=>{
       const errorMessage = error.message;
       return errorMessage      
     })
+}
+
+export const logout = async()=>{
+  return await signOut(auth);
 }
 
 export const authReducer = (state={},action)=>{
