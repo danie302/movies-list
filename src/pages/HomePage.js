@@ -35,8 +35,11 @@ const HomePage = () => {
         <Carrousel
           items={moviesAndConf.popular.results}
           conf={moviesAndConf.conf.images}
-          path="backdrop_path"
-        />
+          path="poster_path"
+          effect={"coverflow"}
+          autoplay={true}
+          className={'.swiper-slide'}
+          />
       )}
       {moviesAndConf.recent.results && (
         <RecentMovies
