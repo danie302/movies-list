@@ -4,14 +4,26 @@
   margin-top: 50px;
   gap: 1.5rem;
 }
-.container-details-img{
+.container-details-poster{
+  display: flex;
+  flex-direction: column;
   width: 330px;
   flex-shrink: 0;
+}
+.container-details-poster img{
+  width: 100%;
+  border-radius: 30px;
 }
 .container-movie-info{
   overflow: hidden;
 }
-.container-details-img img{
-  width: 100%;
-  border-radius: 50px;
+.genres-item{
+  padding: 0.5rem 1.5rem;
+  border: 2px solid #fff;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background-color: black;
+  color: #fff;
+
 }
