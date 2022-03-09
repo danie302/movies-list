@@ -1,0 +1,17 @@
+.container-details{
+  padding: 0 2rem;
+  display: flex;
+  margin-top: 50px;
+  gap: 1.5rem;
+}
+.container-details-img{
+  width: 330px;
+  flex-shrink: 0;
+}
+.container-movie-info{
+  overflow: hidden;
+}
+.container-details-img img{
+  width: 100%;
+  border-radius: 50px;
+}
