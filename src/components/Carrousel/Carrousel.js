@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
   EffectCoverflow,
@@ -11,40 +11,33 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./Carrousel.css";
 import CarrouselItem from "./CarrouselItem/CarrouselItem";
-import React from 'react';
-
+import React from "react";
 
 SwiperCore.use([EffectCoverflow, Pagination, Navigation, Autoplay]);
 
-const Carrousel = (props) => {  
-
-  const {items, conf, path} = props;
-  const slides = [];  
-  console.log(conf);
-  if (items) {
+const Carrousel = (props) => {
+ 
+  const { items, conf, path, autoplay,className } = props;  
+  
+  const slides = [];
+    if (items) {
     items.forEach((item) => {
       slides.push(
-        <SwiperSlide key={item.id}>
-        <CarrouselItem
-          imageTitle={item.title}            
-          imagePath={
-            conf.base_url +
-            conf.logo_sizes[6] +
-            item[path]
-          }
-        />
-      </SwiperSlide>
+        <SwiperSlide key={item.id} className={className}>
+          <CarrouselItem
+            imageTitle={item.title}
+            imagePath={conf.base_url + conf.logo_sizes[6] + item[path]}
+          />
+        </SwiperSlide>
       );
     });
-  }    
+  }
   return (
-    <React.Fragment>  
-
+    <React.Fragment>
       {items && (
         <Swiper
-          id="main_swiper"
           navigation={true}
-          effect={"coverflow"}
+          effect={props.effect}
           centeredSlides={true}
           slidesPerView={window.innerWidth < 768 ? 1 : 4}
           loop={true}
@@ -58,10 +51,7 @@ const Carrousel = (props) => {
           pagination={{
             clickable: true,
           }}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
+          autoplay={autoplay}
           className="my-swiper"
         >
           {slides}
@@ -71,9 +61,9 @@ const Carrousel = (props) => {
   );
 };
 
-Carrousel.propTypes={
+Carrousel.propTypes = {
   items: PropTypes.array,
-  conf: PropTypes.object
-}
+  conf: PropTypes.object,
+};
 
 export default Carrousel;
