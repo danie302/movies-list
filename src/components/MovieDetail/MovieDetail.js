@@ -1,35 +1,40 @@
 import React from "react";
 import Carrousel from "../Carrousel/Carrousel";
-import './MovieDetail.css'
+import "./MovieDetail.css";
 const MovieDetail = (props) => {
-  
+  console.log(props.movie);
+  const { images, movie } = props;
+  const { genres } = movie;
   const castArray = props.cast.cast;
   return (
     <div className="container-details">
-      <div className="container-details-img">
+      <div className="container-details-poster">
         <img
-          src={
-            props.images.base_url +
-            props.images.poster_sizes[4] +
-            props.movie.poster_path
-          }
-          alt={props.movie.title}
+          src={images.base_url + images.poster_sizes[4] + movie.poster_path}
+          alt={movie.title}
         />
+        <span>{movie.tagline}</span>
+        <span>{movie.vote_average}</span>
       </div>
       <div className="container-movie-info">
-        <h2>{props.movie.title}</h2>
-        <p>{props.movie.overview}</p>
+        <h2>{movie.title}</h2>
+        {genres.map((genre, i) => (
+          <span className="genres-item" key={i}>
+            {genre.name}
+          </span>
+        ))}
+        <p>{movie.overview}</p>
         {
           <Carrousel
             items={castArray}
-            conf={props.images}
+            conf={images}
             path={"profile_path"}
             loop={false}
             effect={""}
             autoplay={false}
-            className={'swiper-slide-cast'}
+            className={"swiper-slide-cast"}
             pagination={false}
-            classNameSwiper={'swiper-cast'}
+            classNameSwiper={"swiper-cast"}
           />
         }
       </div>
