@@ -10,14 +10,13 @@
 }
 .swiper-slide-cast{
   max-width: 150px;
-  max-height: 200px;
+  max-height: 300px;
   margin: 0 5px;
 }
-.swiper-slide img,
-.swiper-slide-cast img{
+.swiper-slide-cast img,
+.swiper-slide img{
   display: block;
   width: 100%;
-  height: 100%;
 }
 .swiper-popular{
   width: 95%;  
