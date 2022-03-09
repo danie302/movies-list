@@ -1,7 +1,14 @@
 import React from "react";
+import './CarrouselItem.css'
 
-const CarrouselItem = ({ imagePath, imageTitle }) => {
-  return <img src={imagePath} alt={imageTitle} />;
+const CarrouselItem = (props) => {
+  return (
+    <React.Fragment>
+      <img className={props.className} src={props.imagePath} alt={props.imageTitle} />
+      <p>{props.name}</p>
+
+    </React.Fragment>
+  )
 };
 
 export default CarrouselItem;

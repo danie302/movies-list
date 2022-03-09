@@ -16,17 +16,28 @@ import React from "react";
 SwiperCore.use([EffectCoverflow, Pagination, Navigation, Autoplay]);
 
 const Carrousel = (props) => {
- 
-  const { items, conf, effect, loop, path, autoplay,className, pagination, classNameSwiper } = props;  
-  
+  const {
+    items,
+    conf,
+    effect,
+    loop,
+    path,
+    autoplay,
+    className,
+    pagination,
+    classNameSwiper,
+  } = props;
+
   const slides = [];
-    if (items) {
+  if (items) {
     items.forEach((item) => {
       slides.push(
         <SwiperSlide key={item.id} className={className}>
           <CarrouselItem
             imageTitle={item.title}
             imagePath={conf.base_url + conf.logo_sizes[6] + item[path]}
+            name={item?.name}
+            className={item?.name ? 'img-cast': 'img-popular'}
           />
         </SwiperSlide>
       );
@@ -39,7 +50,7 @@ const Carrousel = (props) => {
           navigation={true}
           effect={effect}
           centeredSlides={false}
-          slidesPerView={'auto'}
+          slidesPerView={"auto"}
           loop={loop}
           coverflowEffect={{
             rotate: 0,
