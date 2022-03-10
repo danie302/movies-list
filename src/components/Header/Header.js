@@ -11,18 +11,24 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import "./Header.css";
 import { AuthContext } from "../../store/auth-context";
+import { logout } from "../../services/authService";
+import { types } from "../../types/types";
 
 const Header = ({ image = "" }) => {
   const authCtx = useContext(AuthContext);
-  const settings = ["Profile", "Favorites", "Dashboard", "Logout"];
+  const settings = ["Profile", "Logout"];
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = async() => {
     setAnchorElUser(null);
+    await logout();
+    authCtx.dispatch({
+      type:types.logout
+    });
   };
 
   return (
@@ -37,7 +43,7 @@ const Header = ({ image = "" }) => {
           >
             Movies List
           </Typography>
-          {authCtx.user !== '' && (
+          {authCtx.user?.isLogged && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import { auth } from './firebase/firebase-config';
@@ -8,14 +8,16 @@ import { AuthContext } from './store/auth-context';
 
 function App() {
   const init = ()=> localStorage.getItem('user');
-  const [user, dispatch] = useReducer(authReducer, {}, init)
-  useEffect(() => {
-    if(!user){
+  const [user, dispatch] = useReducer(authReducer, {}, init); 
+  useEffect(() => {   
+    if(!user ){
       return;
     }
     const uns = auth.onAuthStateChanged(usr=>{
       if(usr?.uid){
         localStorage.setItem('user', JSON.stringify({uid:usr.uid,name:usr.displayName}));
+      }else{
+        localStorage.removeItem('user');        
       }
     })  
     return (uns);    
