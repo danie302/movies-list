@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import { auth } from './firebase/firebase-config';
@@ -7,7 +7,7 @@ import { authReducer } from './services/authService';
 import { AuthContext } from './store/auth-context';
 
 function App() {
-  const init = ()=> localStorage.getItem('user');
+  const init = ()=> JSON.parse(localStorage.getItem('user'));
   const [user, dispatch] = useReducer(authReducer, {}, init); 
   useEffect(() => {   
     if(!user ){
@@ -15,7 +15,7 @@ function App() {
     }
     const uns = auth.onAuthStateChanged(usr=>{
       if(usr?.uid){
-        localStorage.setItem('user', JSON.stringify({uid:usr.uid,name:usr.displayName}));
+        localStorage.setItem('user', JSON.stringify({uid:usr.uid,name:usr.displayName,isLogged:true}));
       }else{
         localStorage.removeItem('user');        
       }
