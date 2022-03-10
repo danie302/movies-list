@@ -23,13 +23,17 @@ const Header = ({ image = "" }) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseUserMenu = async() => {
-    setAnchorElUser(null);
-    await logout();
-    authCtx.dispatch({
-      type:types.logout
-    });
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);   
   };
+  const handleLogout=async(e)=>{
+    if(e.target.id === 'Logout'){
+      await logout();
+      authCtx.dispatch({
+        type:types.logout
+      });      
+    }
+  }
 
   return (
     <AppBar position="static">
@@ -68,7 +72,7 @@ const Header = ({ image = "" }) => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Typography id={setting} textAlign="center" onClick={handleLogout}>{setting}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
