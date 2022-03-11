@@ -6,19 +6,22 @@ const Search = (props) => {
   const onChangeHandler = (e) => {
     setQueryValue(e.target.value);
   };
+  const submitHandler=(e)=>{
+    e.preventDefault();
+    props.onSearch(queryValue)
+  }
   return (
     <React.Fragment>
-      <div className="div-search">
+      <form onSubmit={submitHandler} className="div-search">
         <h2>Search for a movie</h2>        
         <input
           className="input-search"
           type="text"
           value={queryValue}
-          onChange={onChangeHandler}   
-          onKeyPress={(e)=> e.key==='Enter' ? props.onSearch(queryValue):null }       
+          onChange={onChangeHandler}                   
         />
-        <button className="btn-search" onClick={() => props.onSearch(queryValue)}>Search</button>
-      </div>
+        <button type="submit" className="btn-search">Search</button>
+      </form>
     </React.Fragment>
   );
 };
