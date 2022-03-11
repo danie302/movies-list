@@ -2,22 +2,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
   width: 100%;
 }
 
 .form{
   display: flex;
+  background-color: #fff;
+  position: relative;
   flex-direction: column;
   width: 20rem;
   gap: 15px;
   border: 2px solid rgba(3,37,65,1);
   padding: 5rem;
-  border-radius: 15px;
-  
+  border-radius: 15px;  
 }
 .form h3{
   align-self: center;
+  color: #000;
+}
+.form p{
+  color: #000;
 }
 .form button{
   align-self: center;

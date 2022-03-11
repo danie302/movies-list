@@ -13,30 +13,33 @@ import "./Header.css";
 import { AuthContext } from "../../store/auth-context";
 import { logout } from "../../services/authService";
 import { types } from "../../types/types";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({ image = "" }) => {
   const authCtx = useContext(AuthContext);
   const settings = ["Profile", "Logout"];
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  const navigate = useNavigate();
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);   
+    setAnchorElUser(null);
   };
-  const handleLogout=async(e)=>{
-    if(e.target.id === 'Logout'){
+  const handleOptions = async (e) => {
+    if (e.target.id === "Logout") {
       await logout();
       authCtx.dispatch({
-        type:types.logout
-      });      
-    }
-  }
+        type: types.logout,
+      });
+    }    
+  };
 
   return (
-    <AppBar position="static">
+    <AppBar id="header" position="fixed">
       <Container maxWidth="false">
         <Toolbar disableGutters className="header-content">
           <Typography
@@ -45,8 +48,9 @@ const Header = ({ image = "" }) => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}
           >
-            Movies List
+            <Link to="home">Movies List</Link>
           </Typography>
+
           {authCtx.user?.isLogged && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
@@ -72,7 +76,13 @@ const Header = ({ image = "" }) => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography id={setting} textAlign="center" onClick={handleLogout}>{setting}</Typography>
+                    <Typography
+                      id={setting}
+                      textAlign="center"
+                      onClick={handleOptions}
+                    >
+                      {setting}
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>
